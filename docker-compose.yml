@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:8
+    restart: always
+    container_name: mi-postgres-8
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: sanvalentin_admon
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - pg-network
+
+networks:
+  pg-network:
+
